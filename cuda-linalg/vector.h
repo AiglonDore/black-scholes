@@ -46,6 +46,8 @@ public:
 	Vector& operator-=(const Vector& other);
 	Vector& operator*=(double scalar);
 	Vector& operator/=(double scalar) { return *this *= 1.0 / scalar; };
+
+	void toVector(std::vector<double>& data) const;
 };
 
 Vector operator+(const Vector& left, const Vector& right);

@@ -121,7 +121,7 @@ Vector& Vector::operator-=(const Vector& other)
 	if (this->size != other.size) throw std::runtime_error("Vectors must have the same size");
 	if (GPU && other.GPU)
 	{
-
+		CUDA::Vector::sub(this->data, this->data, other.data, size);
 	}
 	else
 	{
@@ -137,7 +137,7 @@ Vector& Vector::operator*=(double other)
 {
 	if (GPU)
 	{
-
+		CUDA::Vector::mul(this->data, this->data, other, size);
 	}
 	else
 	{
@@ -147,6 +147,15 @@ Vector& Vector::operator*=(double other)
 		}
 	}
 	return *this;
+}
+
+void Vector::toVector(std::vector<double>& data) const
+{
+	data.resize(size);
+	for (size_t i = 0; i < size; i++)
+	{
+		data[i] = this->data[i];
+	}
 }
 
 Vector operator+(const Vector& left, const Vector& right)
